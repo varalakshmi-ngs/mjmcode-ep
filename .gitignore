@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build folders
+dist/
+build/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Test / coverage
+coverage/
+*.test.js
+*.spec.js
+
+# OS files
+.DS_Store
+
+# IDE / Editor
+.idea/
+.vscode/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+
+# Typescript
+*.tsbuildinfo
+
+# Archives
+*.tgz
+*.zip
+*.tar.gz
+
+# Uploaded files (important for your project)
+backend/src/uploads/
