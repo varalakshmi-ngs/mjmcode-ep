@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const upload = require("../middleware/uploadMiddleware");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const {
   uploadEpaper,
@@ -11,13 +12,13 @@ const {
   getEpaperById
 } = require("../controllers/epaperController");
 
-router.post("/upload", upload.single("pdf"), uploadEpaper);
+router.post("/upload", authMiddleware, upload.single("pdf"), uploadEpaper);
 
 router.get("/all", getEpapers);
 
 router.get("/:id",getEpaperById)
 
-router.delete("/delete/:id", deleteEpaper);
-router.put("/update/:id", updateEpaper)
+router.delete("/delete/:id", authMiddleware, deleteEpaper);
+router.put("/update/:id", authMiddleware, updateEpaper)
 
 module.exports = router;

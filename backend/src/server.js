@@ -1,42 +1,3 @@
-// require("dotenv").config();
-
-// const express = require("express");
-// const cors = require("cors");
-// const path = require("path");
-
-// const epaperRoutes = require("./routes/epaperRoutes");
-
-// const app = express();
-
-// /* CORS */
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//   })
-// );
-
-// app.use(express.json());
-
-// /* Static uploads folder */
-// app.use(
-//   "/epapers",
-//   express.static(
-//     "C:/Users/LENOVO/Desktop/epaper/backend/src/uploads/epapers"
-//   )
-// );
-
-// /* Routes */
-// app.use("/api/epapers", epaperRoutes);
-
-// app.get("/", (req, res) => {
-//   res.send("Epaper API Running");
-// });
-
-// const PORT = process.env.PORT || 5000;
-
-// app.listen(PORT, () => {
-//   console.log("Server running on port", PORT);
-// });
 require("dotenv").config();
 
 const express = require("express");
@@ -44,26 +5,42 @@ const cors = require("cors");
 const path = require("path");
 
 const epaperRoutes = require("./routes/epaperRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const adRoutes = require("./routes/adRoutes");
 
 const app = express();
 
 /* Middleware */
 app.use(express.json());
 
+/* CORS */
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "https://epaper.pratyakshanews.com"
+    ],
+    credentials: true
   })
 );
 
-/* Static Folder */
+/* Static Folder for PDFs */
 app.use(
   "/epapers",
   express.static(path.join(__dirname, "uploads/epapers"))
 );
 
-/* Routes */
+/* Static Folder for Ads */
+app.use(
+  "/ads",
+  express.static(path.join(__dirname, "uploads/ads"))
+);
+
+/* API Routes */
 app.use("/api/epapers", epaperRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/ads", adRoutes);
 
 /* Test Route */
 app.get("/", (req, res) => {

@@ -45,6 +45,17 @@ connection.connect((err) => {
         )
       `;
 
+      const createAdTableQuery = `
+        CREATE TABLE IF NOT EXISTS ads (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          title VARCHAR(255) NOT NULL,
+          image_path VARCHAR(255) NOT NULL,
+          link_url VARCHAR(255),
+          is_active BOOLEAN DEFAULT TRUE,
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+      `;
+
       connection.query(createTableQuery, (err) => {
         if (err) {
           console.error("Error creating 'epapers' table:", err);
@@ -52,9 +63,17 @@ connection.connect((err) => {
           console.log("Table 'epapers' checked/created successfully.");
         }
         
-        console.log("Database initialization complete.");
-        connection.end();
-        process.exit(0);
+        connection.query(createAdTableQuery, (errAd) => {
+          if (errAd) {
+            console.error("Error creating 'ads' table:", errAd);
+          } else {
+            console.log("Table 'ads' checked/created successfully.");
+          }
+
+          console.log("Database initialization complete.");
+          connection.end();
+          process.exit(0);
+        });
       });
     });
   });
